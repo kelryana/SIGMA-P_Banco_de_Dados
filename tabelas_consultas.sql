@@ -1,3 +1,6 @@
+\\fazer isso aqui abaixo antes de criar a primeira view 
+UPDATE chamados SET id_ambiente = 1 WHERE id_ambiente IS NULL;
+
 CREATE VIEW vw_painel_gestao AS
 SELECT 
     c.id_chamado,
@@ -66,6 +69,12 @@ FROM ordens_servico os
 WHERE os.status_os = 'Concluído' 
 AND os.data_conclusao IS NOT NULL;
 
+//fazer isso aqui abaixo antes do chamados_criticos_pendentes
+UPDATE ordens_servico 
+SET prioridade_os = 5 
+WHERE id_os = 3;
+
+
 CREATE VIEW chamados_criticos_pendentes AS
 SELECT 
     os.id_os,
@@ -89,14 +98,14 @@ JOIN ordens_servico os ON av.id_os = os.id_os
 JOIN usuarios u_tec ON os.id_tecnico = u_tec.id_usuario
 JOIN categorias_servico cat ON os.id_categoria = cat.id_categoria;
 
-CREATE VIEW estoque_critico AS
-SELECT 
-    nome_material,
-    quantidade_estoque,
-    vlr_custo
-FROM materiais
-WHERE quantidade_estoque < 10
-ORDER BY quantidade_estoque ASC;
+    CREATE VIEW estoque_critico AS
+    SELECT 
+        nome_material,
+        quantidade_estoque,
+        vlr_custo
+    FROM materiais
+    WHERE quantidade_estoque < 10
+    ORDER BY quantidade_estoque ASC;
 
 CREATE VIEW historico_completo_os AS
 SELECT 
